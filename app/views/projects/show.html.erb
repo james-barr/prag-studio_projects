@@ -1,0 +1,65 @@
+<article>
+
+  <header>
+    <h1><%= @project.name %></h1>
+    <%= display_image(@project) %>
+  </header>
+
+  <table class="left-aligned">
+    <tr>
+      <th>
+        Description
+      </th>
+      <td>
+        <%= @project.description %>
+      </td>
+    </tr>
+    <tr>
+      <th>
+        Target Pledge Amount
+      </th>
+      <td>
+        <%= @project.target_pledge_amount %>
+      </td>
+    </tr>
+    <tr>
+      <th>
+        Pledging Ends On
+      </th>
+      <td>
+        <%= format_pledge_end @project %>
+      </td>
+    </tr>
+    <tr>
+      <th>
+        Website
+      </th>
+      <td>
+        <%= @project.website %>
+      </td>
+    </tr>
+    <tr>
+      <th>
+        Team Members
+      </th>
+      <td>
+        <%= @project.team_members %>
+      </td>
+    </tr>
+  </table>
+
+  <Br />
+
+  <p>
+    <%= link_to "View Pledges", project_pledges_path(@project) %>
+  </p>
+  <p>
+    <%= link_to "Pledge to project", new_project_pledge_path(@project) %>
+  </p>
+
+  <%= link_to "Edit", edit_project_path(@project) %> |
+  <%= link_to "Delete Project", project_path(@project), method: :delete, data: {confirm: "Are you sure?"} %>
+
+</article>
+
+<%= render 'project_pledge' %>

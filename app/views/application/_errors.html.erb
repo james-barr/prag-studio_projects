@@ -1,0 +1,23 @@
+<% if object.errors.any? %>
+  <header class="error">
+    <h2>
+      Oops! You have some errors.
+    </h2>
+    <h3>
+      Please correct the following
+      <%= pluralize object.errors.count, "error" %>:
+    </h3>
+  </header>
+
+  <article>
+    <ul>
+      <% object.errors.full_messages.each do |error| %>
+        <li>
+          <%= error %>
+        </li>
+      <% end %>
+    </ul>
+  </article>
+
+
+<% end %>

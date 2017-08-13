@@ -1,0 +1,55 @@
+
+<header>
+  <h1> <%= pluralize @projects.count, "Project" %> </h1>
+</header>
+
+<article>
+  <% @projects.each do |project| %>
+    <header>
+      <h2><%= link_to project.name, project_path(project) %></h2>
+      <%= image_tag(project.image_file_name, width: 160, height: 90, class: "left-floated") %>
+    </header>
+    <table class="left-aligned">
+      <tr>
+        <th>
+          Description
+        </th>
+        <td>
+          <%= project.description %>
+        </td>
+      </tr>
+      <tr>
+        <th>
+          Targeted Pledge Amount
+        </th>
+        <td>
+          <%= project.target_pledge_amount %>
+        </td>
+      </tr>
+      <tr>
+        <th>
+          Remaining Pledging Period
+        </th>
+        <td>
+          <%= format_pledge_end project %>
+        </td>
+      </tr>
+      <tr>
+        <th>
+          Project's Website
+        </th>
+        <td>
+          <%= project.website %>
+        </td>
+      </tr>
+      <tr>
+        <th>
+          Team Members
+        </th>
+        <td>
+          <%= project.team_members %>
+        </td>
+      </tr>
+    </table>
+  <% end %>
+</article>

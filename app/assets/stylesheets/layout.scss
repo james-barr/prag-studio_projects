@@ -1,0 +1,32 @@
+@import "colors";
+
+header#header {
+  color: $primary-color;
+  background-color: $secondary-color;
+  padding: 5px;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+footer#footer {
+  color: $secondary-color;
+  background-color: $primary-color;
+  margin-top: 40px;
+  padding: 10px 0 10px 10px;
+}
+
+aside#sidebar {
+  color: $primary-color;
+  background-color: $secondary-color;
+  float: right;
+  .page-link {
+    text-decoration: none;
+    color: $primary-color;
+    font-weight: 700;
+    padding: 0 10px 0 0;
+  }
+  .no-dot {
+    list-style: none;
+    padding-left: 10px;
+  }
+}

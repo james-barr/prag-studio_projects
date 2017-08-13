@@ -1,0 +1,30 @@
+<header>
+  <h2>
+    <%= pluralize @pledges.count, "pledge" %> for <%= @project.name %>
+  </h2>
+</header>
+
+<article>
+  <% @pledges.each do |pl| %>
+    <ul>
+      <li>
+        <%= mail_to pl.email, pl.name %>
+      </li>
+      <li>
+        <%= pl.comment %>
+      </li>
+      <li>
+        <%= pl.pledge %>
+      </li>
+      <li>
+        <%= pl.location %>
+      </li>
+      <li>
+        <%= time_since pl %>
+      </li>
+    </ul>
+  <% end %>
+</article>
+
+
+<%= link_to "Back to project", project_path(@project) %>

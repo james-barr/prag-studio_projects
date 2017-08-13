@@ -1,0 +1,35 @@
+<header>
+  <h2>
+    Pledge for <%= @project.name %>
+  </h2>
+</header>
+
+<p>
+  <%= render "errors", object: @pledge %>
+</p>
+
+<%= form_for [@project, @pledge] do |f| %>
+  <ul>
+    <li>
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+    </li>
+    <li>
+      <%= f.label :pledge %>
+      <%= f.select :pledge, Pledge::Amount %>
+    </li>
+    <li>
+      <%= f.label :email %>
+      <%= f.text_field :email %>
+    </li>
+    <li>
+      <%= f.label :location %>
+      <%= f.text_field :location %>
+    </li>
+    <li>
+      <%= f.label :comment %>
+      <%= f.text_area :comment, size: "20x10" %>
+    </li>
+  </ul>
+  <%= f.submit "Submit Pledge" %>
+<% end %>
