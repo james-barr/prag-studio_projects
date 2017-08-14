@@ -57,3 +57,4 @@ r3 = pr2.pledges.create!(
   pledge: Pledge::Amount.sample,
   email: "cat@g.c",
   location: "WY",
+)
