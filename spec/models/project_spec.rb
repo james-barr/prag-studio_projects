@@ -142,5 +142,30 @@ describe "a project" do
     expect{pr.destroy}.to change(Pledge, :count).by(-1)
   end
 
+  it "calculates the total amount pledged to a project as the sum of all the pledges" do
+    pr = Project.create project_attributes
+    pl1 = pr.pledges.create pledge_attributes pledge: 10
+    pl2 = pr.pledges.create pledge_attributes2 pledge: 20
+    expect(pr.sum_pledges).to eq 30
+  end
+
+  it "calculates the pledge amount outstanding" do
+    pr = Project.create project_attributes target_pledge_amount: 25
+    pl1 = pr.pledges.create pledge_attributes pledge: 10
+    expect(pr.remaining_pledge).to eq 15
+  end
+
+  it "is funded if the target pledge amount has been reached" do
+    pr = Project.create project_attributes target_pledge_amount: 10
+    pl1 = pr.pledges.create pledge_attributes pledge: 10
+    expect(pr.fully_funded?).to eq true
+  end
+
+  it "is not funded if the target pledge amount has not been reached" do
+    pr = Project.create project_attributes target_pledge_amount: 11
+    pl1 = pr.pledges.create pledge_attributes pledge: 10
+    expect(pr.fully_funded?).to eq false
+  end
+
 
 end

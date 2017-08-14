@@ -26,4 +26,16 @@ class Project < ApplicationRecord
     where("pledging_ends_on >= ?", Time.now).order("pledging_ends_on")
   end
 
+  def sum_pledges
+    pledges.all.sum(:pledge)
+  end
+
+  def remaining_pledge
+    target_pledge_amount - sum_pledges
+  end
+
+  def fully_funded?
+    remaining_pledge.zero?
+  end
+
 end

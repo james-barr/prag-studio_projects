@@ -72,5 +72,19 @@ describe "Viewing an individual project" do
     expect(page).to have_selector "header.error"
   end
 
+  it "shows the amount outstanding with a pledge link if the project is not funded" do
+    pr = Project.create project_attributes target_pledge_amount: 10
+    pl = pr.pledges.create pledge_attributes pledge: 9
+    visit project_path(pr)
+    expect(page).to have_link "1", :href=> new_project_pledge_path(pr)
+  end
+
+  it "shows 'Fully funded!' without a pledge link if the project is funded" do
+    pr = Project.create project_attributes target_pledge_amount: 10
+    pl = pr.pledges.create pledge_attributes pledge: 10
+    visit project_path(pr)
+    expect(page).to have_text "Fully funded!"
+  end
+
 
 end

@@ -24,6 +24,14 @@
     </tr>
     <tr>
       <th>
+        Remaining Pledge Amount
+      </th>
+      <td>
+        <%= display_pledge @project %>
+      </td>
+    </tr>
+    <tr>
+      <th>
         Pledging Ends On
       </th>
       <td>
@@ -46,19 +54,26 @@
         <%= @project.team_members %>
       </td>
     </tr>
+
   </table>
 
   <Br />
 
   <p>
     <%= link_to "View Pledges", project_pledges_path(@project) %>
-  </p>
-  <p>
-    <%= link_to "Pledge to project", new_project_pledge_path(@project) %>
+    <br />
   </p>
 
-  <%= link_to "Edit", edit_project_path(@project) %> |
-  <%= link_to "Delete Project", project_path(@project), method: :delete, data: {confirm: "Are you sure?"} %>
+  <p>
+    <%= link_to "Pledge to project", new_project_pledge_path(@project) %>
+    <br />
+  </p>
+
+  <p>
+    <%= link_to "Edit", edit_project_path(@project) %> |
+    <%= link_to "Delete Project", project_path(@project), method: :delete, data: {confirm: "Are you sure?"} %>
+  </p>
+
 
 </article>
 

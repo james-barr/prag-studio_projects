@@ -16,4 +16,12 @@ module ProjectsHelper
     end
   end
 
+  def display_pledge project
+    if project.fully_funded?
+      content_tag(:strong, "Fully funded!")
+    else
+      link_to project.remaining_pledge, new_project_pledge_path(project)
+    end
+  end
+
 end
