@@ -222,7 +222,6 @@ DEPENDENCIES
   byebug
   capybara
   coffee-rails (~> 4.2)
-  guard
   guard-rspec
   jbuilder (~> 2.5)
   listen (>= 3.0.5, < 3.2)
