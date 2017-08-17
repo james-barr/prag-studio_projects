@@ -104,4 +104,11 @@ describe "Navigating Projects" do
     e(current_path).to eq user_path(u)
   end
 
+  it "navigates from user show to user edit" do
+    u = User.create! user_attributes
+    visit user_path(u)
+    click_link "Edit Account"
+    e(current_path).to eq edit_user_path(u)
+  end
+
 end

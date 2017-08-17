@@ -33,3 +33,11 @@
     </table>
     <br />
 </article>
+
+<p>
+  <%= link_to "Delete Account", user_path(@user), data: { confirm: "Are you sure?"}, method: :delete %>
+</p>
+
+<p>
+  <%= link_to "Edit Account", edit_user_path(@user) %>
+</p>

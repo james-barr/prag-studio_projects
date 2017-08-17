@@ -19,6 +19,15 @@
         <%= f.password_field :password_confirmation %>
       </li>
     </ul>
-    <%= f.submit "Create Account" %>
+    <% if current_page?(signup_path) %>
+      <%= f.submit "Create Account" %>
+    <% else %>
+      <%= f.submit "Update Account" %>
+    <% end %>
   <% end %>
 </article>
+
+
+<p>
+  <%= link_to "Cancel", users_path %>
+</p>

@@ -1,13 +1,25 @@
 require 'rails_helper'
 
-describe "Showing a user: " do
+describe 'Editing a user: ' do
 
-  it "shows all account info" do
+  it "does not save an invalid edit & shows errors" do
     u = User.create! user_attributes
     visit user_path(u)
-    e(page).to have_text u.name
-    e(page).to have_text u.email
-    e(page).to have_text present_created_at u
+    click_link "Edit Account"
+    fill_in "Name", with: ""
+    click_button "Update Account"
+    e(current_path).to eq user_path(u)
+    e(page).to have_text "errors"
   end
+
+  it "saves a valid edit, redirects to user show with flash" do
+    u = User.create! user_attributes
+    visit edit_user_path(u)
+    fill_in "Name", with: "Carrie"
+    click_button "Update Account"
+    e(page).to have_text "edited successfully"
+    e(current_path).to eq user_path(u)
+  end
+
 
 end
