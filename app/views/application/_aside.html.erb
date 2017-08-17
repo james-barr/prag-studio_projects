@@ -1,10 +1,24 @@
 <aside id="sidebar">
   <ul class="no-dot">
     <li>
+      Projects
+    </li>
+    <li>
       <%= link_to "All Projects", projects_path, class: "page-link" %>
     </li>
     <li>
       <%= link_to "Add New Project", new_project_path, class: "page-link" %>
+    </li>
+  </ul>
+  <ul class="no-dot">
+    <li>
+      Users
+    </li>
+    <li>
+      <%= link_to "All Users", users_path, class: "page-link" %>
+    </li>
+    <li>
+      <%= link_to "Signup", signup_path, class: "page-link" %>
     </li>
   </ul>
 </aside>
