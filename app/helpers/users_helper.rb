@@ -4,7 +4,6 @@ module UsersHelper
   end
 
   def gravatar_image(o)
-    hash = Digest::MD5.hexdigest o.email
-    url = "https://www.gravatar.com/avatar/#{hash}"
+    "https://www.gravatar.com/avatar/#{o.gravatar_id}"
   end
 end

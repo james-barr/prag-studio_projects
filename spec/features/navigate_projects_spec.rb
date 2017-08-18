@@ -111,4 +111,16 @@ describe "Navigating Projects" do
     e(current_path).to eq edit_user_path(u)
   end
 
+  it "navigates from projects index to signin" do
+    visit projects_path
+    click_link "Sign in"
+    e(current_path).to eq signin_path
+  end
+
+  it "navigates from signin to signup" do
+    visit signin_path
+    click_link "Sign up"
+    e(current_path).to eq signup_path
+  end
+
 end
