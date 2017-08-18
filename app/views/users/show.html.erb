@@ -4,6 +4,10 @@
   </h2>
 </header>
 
+<p class="profile_image">
+  <%= image_tag gravatar_image(@user), alt: "profile image" %>
+</p>
+
 <article>
     <table>
       <tr>
@@ -12,6 +16,14 @@
         </th>
         <td>
           <%= @user.name %>
+        </td>
+      </tr>
+      <tr>
+        <th>
+          Username:
+        </th>
+        <td>
+          <%=  @user.username %>
         </td>
       </tr>
       <tr>

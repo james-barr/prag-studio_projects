@@ -5,4 +5,7 @@ class User < ApplicationRecord
   validates :email, presence: true,
                     uniqueness: { case_sensitive: false },
                     format: { with: /\A\S+@\S+\z/}
+  validates :username, presence: true,
+                      format: { with: /\A[a-zA-Z\d]+\z/i },
+                      uniqueness: { case_sensitive: false }
 end

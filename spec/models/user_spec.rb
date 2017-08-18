@@ -71,4 +71,31 @@ RSpec.describe User, type: :model do
     u.v?
     e(u.password_digest).to be_present
   end
+
+  it "is invalid without a username" do
+    user = User.new username: ""
+    user.v?
+    e(user.errors[:username].any?).to eq true
+  end
+
+  it "is invalid with an improperly formatted username" do
+    user = [',', 'a.c', '!!!!', "abc d", ' ']
+    user.each do |u|
+      u1 = User.new username: u
+      u1.v?
+      e(u1.errors[:username].any?).to eq true
+    end
+  end
+
+  it "is invalid with a repeating username (case-insensitive)" do
+    u1 = User.create! user_attributes
+    u2 = User.new username: u1.username.downcase
+    u2.v?
+    e(u2.errors[:username].any?).to eq true
+  end
+
+
+
+
+
 end

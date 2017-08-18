@@ -10,6 +10,7 @@ describe "Index of users: " do
     e(page).to have_text "User Index"
     e(page).to have_text u1.name
     e(page).to have_text u2.email
+    e(page).to have_text u2.username
     e(page).to have_text u3.name
     e(page).to have_text present_created_at u3
   end
