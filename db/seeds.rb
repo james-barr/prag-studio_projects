@@ -63,18 +63,21 @@ User.create!([
   {
     name: "al",
     email: "al@g.com",
+    username: "al",
     password: "X",
     password_confirmation: "X",
   },
   {
     name: "Mike",
     email: "m@g",
+    username: "Mike",
     password: "M",
     password_confirmation: "M",
   },
   {
     name: "Yesim",
     email: "yess@y.com",
+    username: "Yessim",
     password: "X1",
     password_confirmation: "X1",
   },

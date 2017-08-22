@@ -17,8 +17,12 @@ describe "New user creation: " do
     fill_in "Password", with: "meow"
     fill_in "Confirm Password", with: "meow"
     click_button "Create Account"
-    e(current_path).to eq users_path
+    e(current_path).to eq user_path(User.last)
     e(page).to have_text "created successfully"
+    e(page).to have_link "Al"
+    e(page).to have_link "Account Settings"
+    e(page).not_to have_link "Sign In"
+    e(page).not_to have_link "Sign Up"
   end
 
 end

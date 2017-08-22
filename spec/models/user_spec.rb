@@ -94,7 +94,20 @@ RSpec.describe User, type: :model do
     e(u2.errors[:username].any?).to eq true
   end
 
+  it "authenticates a valid email / pw combo" do
+    u = User.create! user_attributes email: "xx@x", password: "x", password_confirmation: "x"
+    e(User.authenticate("xx@x", u.password)).to eq u
+  end
 
+  it "does not authenticate a missing username" do
+    u = User.create! user_attributes username: "xxx", password: "x1", password_confirmation: "x1"
+    e(User.authenticate("", u.password)).not_to eq true
+  end
+
+  it "does not authenticate a missing pw" do
+    u = User.create! user_attributes email: "xx@x", password: "x1", password_confirmation: "x1"
+    e(User.authenticate("xx@x", "")).not_to eq true
+  end
 
 
 

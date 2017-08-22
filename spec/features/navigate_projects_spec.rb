@@ -87,7 +87,7 @@ describe "Navigating Projects" do
 
   it "navigates from projects index to new user through aside" do
     visit projects_path
-    click_link "Signup"
+    click_link "Sign Up"
     e(current_path).to eq signup_path
   end
 
@@ -113,7 +113,7 @@ describe "Navigating Projects" do
 
   it "navigates from projects index to signin" do
     visit projects_path
-    click_link "Sign in"
+    click_link "Sign In"
     e(current_path).to eq signin_path
   end
 

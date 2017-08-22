@@ -9,7 +9,7 @@
       <%= form_tag :session do %>
         <p>
           <%= label_tag :email, "Email or Username" %>
-          <%= email_field_tag :email, nil, autofocus: true, required: true %>
+          <%= text_field_tag :email, nil, autofocus: true, required: true %>
         </p>
         <p>
           <%= label_tag :password %>

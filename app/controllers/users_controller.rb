@@ -7,7 +7,8 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      redirect_to users_path, notice: "User created successfully!"
+      session[:user_id] = @user.id
+      redirect_to @user, notice: "User created successfully!"
     else
       render 'new'
     end
@@ -24,6 +25,7 @@ class UsersController < ApplicationController
   def destroy
     @user = User.find(params[:id])
     @user.delete
+    session[:user_id] = nil
     redirect_to users_path, alert: "User deleted successfully"
   end
 
