@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  before_action :require_signin, except: [:new, :create]
 
   def new
     @user = User.new
@@ -26,7 +27,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @user.delete
     session[:user_id] = nil
-    redirect_to users_path, alert: "User deleted successfully"
+    redirect_to root_path, alert: "User deleted successfully"
   end
 
   def edit

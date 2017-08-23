@@ -4,6 +4,7 @@ describe 'Editing a user: ' do
 
   it "does not save an invalid edit & shows errors" do
     u = User.create! user_attributes
+    sign_in u
     visit user_path(u)
     click_link "Edit Account"
     fill_in "Name", with: ""
@@ -14,6 +15,7 @@ describe 'Editing a user: ' do
 
   it "saves a valid edit, redirects to user show with flash" do
     u = User.create! user_attributes
+    sign_in u
     visit edit_user_path(u)
     fill_in "Name", with: "Carrie"
     click_button "Update Account"

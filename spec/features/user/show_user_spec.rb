@@ -4,6 +4,7 @@ describe "Showing a user: " do
 
   it "shows all account info" do
     u = User.create! user_attributes
+    sign_in u
     visit user_path(u)
     e(page).to have_text u.name
     e(page).to have_text u.username
