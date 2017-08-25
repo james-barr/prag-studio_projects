@@ -61,24 +61,25 @@ r3 = pr2.pledges.create!(
 
 User.create!([
   {
-    name: "al",
-    email: "al@g.com",
-    username: "al",
-    password: "X",
-    password_confirmation: "X",
+    name: "Admin",
+    email: "a@f",
+    username: "admin",
+    password: "x",
+    password_confirmation: "x",
+    admin: true
   },
   {
-    name: "Mike",
-    email: "m@g",
-    username: "Mike",
-    password: "M",
-    password_confirmation: "M",
+    name: "Jon",
+    email: "j@f",
+    username: "jon",
+    password: "x",
+    password_confirmation: "x",
   },
   {
-    name: "Yesim",
-    email: "yess@y.com",
-    username: "Yessim",
-    password: "X1",
-    password_confirmation: "X1",
+    name: "Bob",
+    email: "b@f",
+    username: "bob",
+    password: "x",
+    password_confirmation: "x",
   },
   ])

@@ -1,6 +1,12 @@
 require "rails_helper"
 
-describe "Creating new project" do
+describe "Creating new project (admin)" do
+
+  before do
+    @admin = User.create! user_attributes admin: true
+    sign_in @admin
+  end
+
   it "has all required fields, creates a project, and redirects to the show page" do
     visit new_project_url
     expect(page).to have_text "Adding New Project"

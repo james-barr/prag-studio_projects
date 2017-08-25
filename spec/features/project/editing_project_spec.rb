@@ -1,11 +1,15 @@
 require "rails_helper"
 
-describe "Editing a project" do
+describe "Editing a project (admin)" do
+
+  before do
+    @admin = User.create! user_attributes admin: true
+    sign_in @admin
+  end
+
   it "updates the project and shows the project's details" do
     project = Project.create(project_attributes)
-
     visit edit_project_path(project)
-
     expect(find_field('Name').value).to eq(project.name)
     expect(find_field('Description').value).to eq(project.description)
     expect(find_field('Website').value).to eq(project.website)

@@ -1,50 +1,47 @@
 require "rails_helper"
 
-describe "Navigating Projects" do
-  it "navigates from show to index" do
-    project = Project.create(project_attributes)
+describe "Navigating" do
 
-    visit project_url(project)
+  context "logged in as admin, looking at projects" do
 
-    click_link "All Projects"
+    before do
+      @admin = User.create! user_attributes admin: true
+      sign_in @admin
+    end
 
-    expect(current_path).to eq(projects_path)
+    it "navigates from show to index" do
+      project = Project.create(project_attributes)
+      visit project_url(project)
+      click_link "All Projects"
+      expect(current_path).to eq(projects_path)
+    end
+
+    it "navigates from show to edit" do
+      project = Project.create project_attributes
+      visit project_url(project)
+      click_link "Edit"
+      expect(current_path).to eq(edit_project_path(project))
+    end
+
+    it "navigates from new to index via the cancel button" do
+      visit new_project_url
+      click_link "Cancel"
+      expect(current_path).to eq(projects_path)
+    end
+
+    it "navigates from index to new" do
+      visit projects_url
+      click_link "Add New Project"
+      expect(current_path).to eq(new_project_path)
+    end
+
   end
 
   it "navigates from index to show" do
     project = Project.create(project_attributes)
-
     visit projects_url
-
     click_link project.name
-
     expect(current_path).to eq(project_path(project))
-  end
-
-  it "navigates from show to edit" do
-    project = Project.create project_attributes
-
-    visit project_url(project)
-
-    click_link "Edit"
-
-    expect(current_path).to eq(edit_project_path(project))
-  end
-
-  it "navigates from index to new" do
-    visit projects_url
-
-    click_link "Add New Project"
-
-    expect(current_path).to eq(new_project_path)
-  end
-
-  it "navigates from new to index via the cancel button" do
-    visit new_project_url
-
-    click_link "Cancel"
-
-    expect(current_path).to eq(projects_path)
   end
 
   it "navigates from project show to pledge index" do

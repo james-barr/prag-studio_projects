@@ -46,10 +46,12 @@
     <br />
 </article>
 
-<% if current_user? @user %>
+<% if current_user_or_admin? @user %>
   <p>
     <%= link_to "Delete Account", user_path(@user), data: { confirm: "Are you sure?"}, method: :delete %>
   </p>
+<% end %>
+<% if current_user? @user %>
   <p>
     <%= link_to "Edit Account", edit_user_path(@user) %>
   </p>

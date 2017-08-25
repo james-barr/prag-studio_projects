@@ -2,10 +2,13 @@ require 'rails_helper'
 
 describe "Destroying a user" do
 
+  before do
+    @u = User.create! user_attributes admin: false
+    sign_in @u
+  end
+
   it "deletes a user" do
-    u = User.create! user_attributes
-    sign_in u
-    visit user_path(u)
+    visit user_path(@u)
     click_link "Delete Account"
     e(current_path).to eq root_path
     e(page).to have_link "Sign In"
