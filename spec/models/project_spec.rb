@@ -3,7 +3,6 @@ require "rails_helper"
 describe "a project" do
   it "returns 'All Done' if the pledge date has passed" do
     project = Project.new(pledging_ends_on: 100.days.ago)
-
     expect(project.ended?).to eq(true)
   end
 
@@ -136,34 +135,47 @@ describe "a project" do
   end
 
   it "deletes all associated pledges if it is deleted" do
+    u = User.create! user_attributes
     pr = Project.create project_attributes
-    pl1 = pr.pledges.create pledge_attributes
+    pl1 = pr.pledges.new pledge_attributes
+    pl1.user = u; pl1.save!
     pr.valid?
     expect{pr.destroy}.to change(Pledge, :count).by(-1)
   end
 
   it "calculates the total amount pledged to a project as the sum of all the pledges" do
+    u = User.create! user_attributes
+    u2 = User.create user_attributes
     pr = Project.create project_attributes
-    pl1 = pr.pledges.create pledge_attributes pledge: 10
-    pl2 = pr.pledges.create pledge_attributes2 pledge: 20
+    pl1 = pr.pledges.new pledge_attributes pledge: 10
+    pl2 = pr.pledges.new pledge_attributes2 pledge: 20
+    pl1.user = u; pl1.save!
+    pl2.user = u2; pl2.save!
     expect(pr.sum_pledges).to eq 30
   end
 
   it "calculates the pledge amount outstanding" do
+    u = User.create! user_attributes
+    u2 = User.create user_attributes
     pr = Project.create project_attributes target_pledge_amount: 25
-    pl1 = pr.pledges.create pledge_attributes pledge: 10
+    pl1 = pr.pledges.new pledge_attributes pledge: 10
+    pl1.user = u; pl1.save!
     expect(pr.remaining_pledge).to eq 15
   end
 
   it "is funded if the target pledge amount has been reached" do
+    u = User.create! user_attributes
     pr = Project.create project_attributes target_pledge_amount: 10
-    pl1 = pr.pledges.create pledge_attributes pledge: 10
+    pl1 = pr.pledges.new pledge_attributes pledge: 10
+    pl1.user = u; pl1.save!
     expect(pr.fully_funded?).to eq true
   end
 
   it "is not funded if the target pledge amount has not been reached" do
+    u = User.create! user_attributes
     pr = Project.create project_attributes target_pledge_amount: 11
-    pl1 = pr.pledges.create pledge_attributes pledge: 10
+    pl1 = pr.pledges.new pledge_attributes pledge: 10
+    pl1.user = u; pl1.save!
     expect(pr.fully_funded?).to eq false
   end
 

@@ -8,7 +8,7 @@
   <% @pledges.each do |pl| %>
     <ul>
       <li>
-        <%= mail_to pl.email, pl.name %>
+        <%= mail_to pl.user.email, pl.user.name %>
       </li>
       <li>
         <%= pl.comment %>

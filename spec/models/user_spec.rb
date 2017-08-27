@@ -109,6 +109,18 @@ RSpec.describe User, type: :model do
     e(User.authenticate("xx@x", "")).not_to eq true
   end
 
+  it "has many pledges" do
+    u = User.new user_attributes
+    pr1 = Project.new project_attributes
+    pr2 = Project.new project_attributes
+    pl1 = pr1.pledges.new pledge_attributes
+    pl1.user = u; pl1.save!
+    pl2 = pr2.pledges.new pledge_attributes2
+    pl2.user = u; pl2.save!
+    e(u.pledges).to include pl1
+    e(u.pledges).to include pl2
+  end
+
 
 
 end

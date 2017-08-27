@@ -11,6 +11,7 @@ class PledgesController < ApplicationController
 
   def create
     @pledge = @project.pledges.new(pledge_params)
+    @pledge.user_id = session[:user_id]
     if @pledge.save
       flash[:success] = "Success! You've pledged to this project."
       redirect_to project_path(@project)

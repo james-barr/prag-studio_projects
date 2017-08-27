@@ -1,28 +1,9 @@
 require "rails_helper"
 
 describe "A pledge - " do
-  it "rejects a blank name" do
-    pl = Pledge.new name: ""
-    pl.valid?
-    expect(pl.errors[:name].any?).to eq true
-  end
 
-  it "has an email that is correctly formatted" do
-    e = ["a@g.com", "1@c", "bag-da1meow@.net"]
-    e.each do |e|
-      pl = Pledge.new email: e
-      pl.valid?
-      expect(pl.errors[:email].any?).to eq false
-    end
-  end
-
-  it "rejects an email that is incorrectly formatted" do
-    e = ["ag.com", "1@", "@.net"]
-    e.each do |e|
-      pl = Pledge.new email: e
-      pl.valid?
-      expect(pl.errors[:email].any?).to eq true
-    end
+  before do
+    @u = User.create! user_attributes
   end
 
   it "invalidates an optional comment that is less than 25 characters" do
@@ -75,6 +56,7 @@ describe "A pledge - " do
   it "is a valid submission with good attributes" do
     project = Project.new project_attributes
     pl = Pledge.new pledge_attributes(project: project)
+    pl.user = @u
     pl.valid?
     expect(pl.errors.any?).to eq false
   end
