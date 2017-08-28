@@ -1,53 +1,57 @@
 require "rails_helper"
 
 describe "Viewing an individual project" do
+
+  before do
+    @u = User.create! user_attributes admin: true
+    sign_in @u
+  end
+
   it "Shows the project's details" do
     project = Project.create(project_attributes)
     visit project_url project
-    expect(page).to have_text project.name
-    expect(page).to have_text project.description
-    expect(page).to have_text project.target_pledge_amount
-    expect(page).to have_text project.website
+    e(page).to have_text project.name
+    e(page).to have_text project.description
+    e(page).to have_text project.target_pledge_amount
+    e(page).to have_text project.website
 
   end
 
   it "shows 'All Done' if the pledging drive has ended" do
     project = Project.create project_attributes(pledging_ends_on: 1.day.ago)
     visit project_url project
-    expect(page).to have_text "Drive has ended!"
+    e(page).to have_text "Drive has ended!"
   end
 
   it "shows the number of days until the pledging is done, if days remain" do
     allow(Time).to receive(:now).and_return(Time.parse("00:00:00"))
     project = Project.create project_attributes(pledging_ends_on: 1.day.from_now)
     visit project_url project
-    expect(page).to have_text("1 day remaining")
+    e(page).to have_text("1 day remaining")
   end
 
   it "shows the default image if none is provided" do
     project = Project.create project_attributes4
     visit project_url(project)
-    expect(page).to have_selector "img[src*=placeholder]"
+    e(page).to have_selector "img[src*=placeholder]"
   end
 
   it "shows the selected image for project" do
     project = Project.create project_attributes
     visit project_url(project)
-    expect(page).to have_selector "img[src*=projecta]"
+    e(page).to have_selector "img[src*=projecta]"
   end
 
   it "saves a valid pledge and redirects with a flash msg" do
-    u = User.create! user_attributes
-    sign_in u
     pr = Project.create project_attributes
     visit project_url(pr)
     fill_in "Location", with: "DE"
     fill_in "Comment", with: ""
     select "10", from: "Pledge"
     click_button "Submit Pledge"
-    expect(current_path).to eq project_path(pr)
-    expect(page).to have_text "Success"
-    expect(page).to have_selector "p.flash_success"
+    e(current_path).to eq project_path(pr)
+    e(page).to have_text "Success"
+    e(page).to have_selector "p.flash_success"
   end
 
   it "does not save an invalid pledge and shows errors" do
@@ -55,27 +59,23 @@ describe "Viewing an individual project" do
     pl = pr.pledges.create pledge_attributes
     visit project_url(pr)
     click_button "Submit Pledge"
-    expect(current_path).to eq project_pledges_path(pr)
-    expect(page).to have_text "error"
-    expect(page).to have_selector "header.error"
+    e(current_path).to eq project_pledges_path(pr)
+    e(page).to have_text "error"
+    e(page).to have_selector "header.error"
   end
 
   it "shows the amount outstanding with a pledge link if the project is not funded" do
-    u = User.create! user_attributes
     pr = Project.create project_attributes target_pledge_amount: 10
-    pl = pr.pledges.new pledge_attributes pledge: 5
-    pl.user = u; pl.save!
+    pl = pr.pledges.create pledge_attributes pledge: 5, user: @u
     visit project_path(pr)
-    expect(page).to have_link "5", :href=> new_project_pledge_path(pr)
+    e(page).to have_link "5", :href=> new_project_pledge_path(pr)
   end
 
   it "shows 'Fully funded!' without a pledge link if the project is funded" do
-    u = User.create! user_attributes
     pr = Project.create project_attributes target_pledge_amount: 10
-    pl = pr.pledges.new pledge_attributes pledge: 10
-    pl.user = u; pl.save!
+    pl = pr.pledges.create pledge_attributes pledge: 10, user: @u
     visit project_path(pr)
-    expect(page).to have_text "Fully funded!"
+    e(page).to have_text "Fully funded!"
   end
 
 

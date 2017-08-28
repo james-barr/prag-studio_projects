@@ -6,9 +6,14 @@
 
 <article>
   <% @pledges.each do |pl| %>
+
+  <p class="profile_image">
+    <%= gravatar_image(pl.user) %>
+  </p>
+
     <ul>
       <li>
-        <%= mail_to pl.user.email, pl.user.name %>
+        <%= link_to pl.user.email, pl.user %>
       </li>
       <li>
         <%= pl.comment %>

@@ -64,17 +64,19 @@
     <br />
   </p>
 
-  <p>
-    <%= link_to "Pledge to project", new_project_pledge_path(@project) %>
-    <br />
-  </p>
-
+<% if current_user_admin? %>
   <p>
     <%= link_to "Edit", edit_project_path(@project) %> |
     <%= link_to "Delete Project", project_path(@project), method: :delete, data: {confirm: "Are you sure?"} %>
   </p>
+<% end %>
 
 
 </article>
 
+<% if current_user %>
+<p>
+  Go-to project pledge: <%= link_to "Pledge to project", new_project_pledge_path(@project) %>
+</p>
 <%= render 'project_pledge' %>
+<% end %>

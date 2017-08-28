@@ -1,4 +1,5 @@
 class PledgesController < ApplicationController
+  before_action :require_signin
   before_action :set_project
 
   def index
@@ -11,7 +12,7 @@ class PledgesController < ApplicationController
 
   def create
     @pledge = @project.pledges.new(pledge_params)
-    @pledge.user_id = session[:user_id]
+    @pledge.user = current_user
     if @pledge.save
       flash[:success] = "Success! You've pledged to this project."
       redirect_to project_path(@project)
