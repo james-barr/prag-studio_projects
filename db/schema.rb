@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170826182013) do
+ActiveRecord::Schema.define(version: 20170828232859) do
+
+  create_table "follows", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "project_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["project_id"], name: "index_follows_on_project_id"
+    t.index ["user_id"], name: "index_follows_on_user_id"
+  end
 
   create_table "pledges", force: :cascade do |t|
     t.text "comment"

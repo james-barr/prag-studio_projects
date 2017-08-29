@@ -37,27 +37,7 @@ Project.create! ([
 ])
 pr = Project.find(1)
 pr2 = Project.find(2)
-r1 = pr.pledges.create!(
-  name: "Sean",
-  comment: "",
-  pledge: Pledge::Amount.sample,
-  email: "S@email.com",
-  location: "CH",
-)
-r2 = pr.pledges.create!(
-  name: "Markus Smart The 3rd",
-  comment: "meow meow kitty go bye-bye to the moon cheese",
-  pledge: Pledge::Amount.sample,
-  email: "s-1@g.com",
-  location: "DE",
-)
-r3 = pr2.pledges.create!(
-  name: "Cat Williams",
-  comment: "Jokes and dogs and yarn and lasers and napping",
-  pledge: Pledge::Amount.sample,
-  email: "cat@g.c",
-  location: "WY",
-)
+pr3 = Project.find(3)
 
 User.create!([
   {
@@ -82,4 +62,32 @@ User.create!([
     password: "x",
     password_confirmation: "x",
   },
-  ])
+])
+u1 = User.find 1
+u2 = User.find 3
+u3 = User.find 2
+
+r1 = pr.pledges.create!(
+  comment: "",
+  pledge: Pledge::Amount.sample,
+  location: "CH",
+  user: u2
+)
+r2 = pr.pledges.create!(
+  comment: "meow meow kitty go bye-bye to the moon cheese",
+  pledge: Pledge::Amount.sample,
+  location: "DE",
+  user: u1
+)
+r3 = pr2.pledges.create!(
+  comment: "Jokes and dogs and yarn and lasers and napping",
+  pledge: Pledge::Amount.sample,
+  location: "WY",
+  user: u1
+)
+
+f1 = pr.follows.create! user: u1
+f2 = pr.follows.create! user: u2
+f3 = pr.follows.create! user: u3
+f4 = pr2.follows.create! user: u1
+f5 = pr3.follows.create! user: u1

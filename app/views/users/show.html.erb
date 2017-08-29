@@ -46,7 +46,18 @@
     <br />
 </article>
 
+<% if @following.any? %>
+<h3>Following:</h3>
+<% @following.each do |f| %>
+<p>
+  <%= link_to f.name, f %>,
+  since <%= time_ago_in_words f.created_at %> ago
+</p>
+<% end %>
+<% end %>
+
 <% if @pledges.any? %>
+<h3>Pledges:</h3>
 <p>
   <% @pledges.each do |pl| %>
   <list>

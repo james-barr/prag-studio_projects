@@ -54,10 +54,21 @@
         <%= @project.team_members %>
       </td>
     </tr>
-
   </table>
 
-  <Br />
+<% if @followers.any? %>
+<h3>Followers</h3>
+<p>
+<ul>
+  <% @followers.each do |f| %>
+  <li>
+    <%= gravatar_image f, size: 30 %>
+    <%= link_to f.name, f %>
+  </li>
+  <% end %>
+</ul>
+</p>
+<% end %>
 
   <p>
     <%= link_to "View Pledges", project_pledges_path(@project) %>

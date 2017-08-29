@@ -24,6 +24,7 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @pledges = @user.pledges
+    @following = @user.following
   end
 
   def destroy

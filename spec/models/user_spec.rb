@@ -121,6 +121,15 @@ RSpec.describe User, type: :model do
     e(u.pledges).to include pl2
   end
 
+  it "follows many projects" do
+    u = User.create! user_attributes
+    pr1 = Project.create! project_attributes
+    pr2 = Project.create! project_attributes2
+    f1 = pr1.follows.create! user: u
+    f1 = pr2.follows.create! user: u
+    e(u.following).to include pr1
+    e(u.following).to include pr2
+  end
 
 
 end

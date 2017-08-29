@@ -179,5 +179,15 @@ describe "a project" do
     expect(pr.fully_funded?).to eq false
   end
 
+  it "has many followers" do
+    u = User.create! user_attributes
+    u2 = User.create! user_attributes2
+    pr = Project.create project_attributes
+    f1 = pr.follows.create! user: u
+    f2 = pr.follows.create! user: u2
+    e(pr.followers).to include u
+    e(pr.followers).to include u2
+  end
+
 
 end

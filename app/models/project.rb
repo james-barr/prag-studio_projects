@@ -1,5 +1,7 @@
 class Project < ApplicationRecord
   has_many :pledges, dependent: :destroy
+  has_many :follows, dependent: :destroy
+  has_many :followers, through: :follows, source: :user
 
   validates :name, presence: true
 
