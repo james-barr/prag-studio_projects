@@ -54,6 +54,14 @@
         <%= @project.team_members %>
       </td>
     </tr>
+    <tr>
+      <th>
+        Following
+      </th>
+      <td>
+        <%= pluralize @project.followers.count, "follower" %>
+      </td>
+    </tr>
   </table>
 
 <% if @followers.any? %>
@@ -68,6 +76,14 @@
   <% end %>
 </ul>
 </p>
+<% end %>
+
+<% if current_user %>
+  <% if @current_follow %>
+    <%= button_to "Unfollow", project_follow_path(@project), method: :delete %>
+  <% else %>
+    <%= button_to "Follow", project_follows_path(@project) %>
+  <% end %>
 <% end %>
 
   <p>
@@ -91,3 +107,13 @@
 </p>
 <%= render 'project_pledge' %>
 <% end %>
+
+
+<h3>Types</h3>
+<ul>
+<% @types.each do |t| %>
+  <li>
+    <%= t.name %>
+  </li>
+<% end %>
+</ul>

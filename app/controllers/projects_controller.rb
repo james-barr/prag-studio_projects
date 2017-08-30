@@ -10,6 +10,10 @@ class ProjectsController < ApplicationController
     @project = Project.find params[:id]
     @pledge = @project.pledges.new
     @followers = @project.followers
+    if current_user
+      @current_follow = current_user.follows.find_by(project_id: @project)
+    end
+    @types = @project.types
   end
 
   def edit
@@ -48,7 +52,7 @@ private
 
   def project_params
     params.require(:project).permit(:name, :description, :target_pledge_amount,
-        :price, :website, :team_members, :image_file_name)
+        :price, :website, :team_members, :image_file_name, type_ids: [])
   end
 
 end

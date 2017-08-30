@@ -35,7 +35,7 @@ Project.create! ([
     image_file_name: "projectc.png"
   }
 ])
-pr = Project.find(1)
+pr1 = Project.find(1)
 pr2 = Project.find(2)
 pr3 = Project.find(3)
 
@@ -67,13 +67,13 @@ u1 = User.find 1
 u2 = User.find 3
 u3 = User.find 2
 
-r1 = pr.pledges.create!(
+r1 = pr1.pledges.create!(
   comment: "",
   pledge: Pledge::Amount.sample,
   location: "CH",
   user: u2
 )
-r2 = pr.pledges.create!(
+r2 = pr1.pledges.create!(
   comment: "meow meow kitty go bye-bye to the moon cheese",
   pledge: Pledge::Amount.sample,
   location: "DE",
@@ -86,8 +86,36 @@ r3 = pr2.pledges.create!(
   user: u1
 )
 
-f1 = pr.follows.create! user: u1
-f2 = pr.follows.create! user: u2
-f3 = pr.follows.create! user: u3
+f1 = pr1.follows.create! user: u1
+f2 = pr1.follows.create! user: u2
+f3 = pr1.follows.create! user: u3
 f4 = pr2.follows.create! user: u1
 f5 = pr3.follows.create! user: u1
+
+Type.create! ([
+  {
+    name: "Personal"
+  },
+  {
+    name: "Business"
+  },
+  {
+    name: "Fitness"
+  },
+  {
+    name: "Crafts"
+  },
+  {
+    name: "Gaming"
+  },
+])
+
+t1 = Type.find 1
+t2 = Type.find 2
+t3 = Type.find 3
+t4 = Type.find 4
+t5 = Type.find 5
+
+prt1 = pr1.types = [t1, t2, t5]
+prt2 = pr2.types = [t1, t3]
+prt3 = pr3.types = [t4, t5]

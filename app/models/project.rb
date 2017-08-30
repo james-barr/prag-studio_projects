@@ -2,6 +2,8 @@ class Project < ApplicationRecord
   has_many :pledges, dependent: :destroy
   has_many :follows, dependent: :destroy
   has_many :followers, through: :follows, source: :user
+  has_many :characterizations, dependent: :destroy
+  has_many :types, through: :characterizations
 
   validates :name, presence: true
 
