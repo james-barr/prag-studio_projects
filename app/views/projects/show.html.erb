@@ -1,3 +1,5 @@
+<% title @project.name %>
+
 <article>
 
   <header>
@@ -64,20 +66,6 @@
     </tr>
   </table>
 
-<% if @followers.any? %>
-<h3>Followers</h3>
-<p>
-<ul>
-  <% @followers.each do |f| %>
-  <li>
-    <%= gravatar_image f, size: 30 %>
-    <%= link_to f.name, f %>
-  </li>
-  <% end %>
-</ul>
-</p>
-<% end %>
-
 <% if current_user %>
   <% if @current_follow %>
     <%= button_to "Unfollow", project_follow_path(@project), method: :delete %>
@@ -108,6 +96,21 @@
 <%= render 'project_pledge' %>
 <% end %>
 
+<% content_for :side do %>
+
+<% if @followers.any? %>
+<h3>Followers</h3>
+<p>
+<ul>
+  <% @followers.each do |f| %>
+  <li>
+    <%= gravatar_image f, size: 30 %>
+    <%= link_to f.name, f %>
+  </li>
+  <% end %>
+</ul>
+</p>
+<% end %>
 
 <h3>Types</h3>
 <ul>
@@ -117,3 +120,4 @@
   </li>
 <% end %>
 </ul>
+<% end %>

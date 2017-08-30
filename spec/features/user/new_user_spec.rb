@@ -23,6 +23,7 @@ describe "New user creation: " do
     e(page).to have_link "Account Settings"
     e(page).not_to have_link "Sign In"
     e(page).not_to have_link "Sign Up"
+    e(page).to have_title "Projects - Al"
   end
 
 end

@@ -25,9 +25,12 @@ describe "Creating new project (admin)" do
     e(current_path).to eq(project_path(Project.last))
     e(page).to have_text "New Project"
     e(page).to have_selector "p.flash_notice"
-    e(page).to have_text @t1.name
-    e(page).to have_text @t2.name
+    within "aside#sidebar" do
+      e(page).to have_text @t1.name
+      e(page).to have_text @t2.name
+    end
     e(page).not_to have_text @t3.name
+    e(page).to have_title "Projects - New Project"
   end
 
   it "does not save new event that is invalid" do
