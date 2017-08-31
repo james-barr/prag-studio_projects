@@ -22,6 +22,13 @@ class Project < ApplicationRecord
   validates :image_file_name, format: { with: /.+\.(jpg|gif|png)/i,
     message: "File must be a png, gif, or jpg"}, allow_blank: true
 
+    scope :find_all, -> { order(name: :desc) }
+    scope :pledging_ended, -> { find_all.where('pledging_ends_on < ?', Date.today ) }
+    scope :pledging, -> { find_all.where('pledging_ends_on > ?', Time.now) }
+    scope :past_n_days, -> (n=30) { find_all.where('created_at >= ?', n.days.ago)}
+    scope :target_greater_than, -> (amount) { find_all.where('target_pledge_amount > ?', amount) }
+    scope :target_less_than, -> (amount) { find_all.where('target_pledge_amount < ?', amount) }
+
   def ended?
     pledging_ends_on == nil || pledging_ends_on < 0.days.from_now
   end

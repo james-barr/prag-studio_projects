@@ -13,7 +13,7 @@ describe "Navigating" do
 
     it "navigates from show to index" do
       visit project_url(@pr)
-      click_link "All Projects"
+      click_link "Pledging Projects"
       e(current_path).to eq(projects_path)
     end
 

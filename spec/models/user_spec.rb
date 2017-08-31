@@ -131,5 +131,19 @@ RSpec.describe User, type: :model do
     e(u.following).to include pr2
   end
 
+  it "returns users by_name" do
+    u1 = User.create! user_attributes
+    u2 = User.create! user_attributes2
+    e(User.by_name).to include u1
+    e(User.by_name).to include u2
+  end
+
+  it "returns non-admin users" do
+    u1 = User.create! user_attributes admin: true
+    u2 = User.create! user_attributes2 admin: false
+    e(User.not_admins).not_to include u1
+    e(User.not_admins).to include u2
+  end
+
 
 end

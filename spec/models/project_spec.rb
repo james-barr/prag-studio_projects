@@ -189,5 +189,47 @@ describe "a project" do
     e(pr.followers).to include u2
   end
 
+  it "returns projects with target pledge amounts greater than" do
+    pr1 = Project.create! project_attributes target_pledge_amount: 100
+    pr2 = Project.create! project_attributes2 target_pledge_amount: 1
+    e(Project.target_greater_than 90).to include pr1
+    e(Project.target_greater_than 90).not_to include pr2
+  end
+
+  it "returns projects with target pledge amounts less than" do
+    pr1 = Project.create! project_attributes target_pledge_amount: 1
+    pr2 = Project.create! project_attributes2 target_pledge_amount: 100
+    e(Project.target_less_than 90).to include pr1
+    e(Project.target_less_than 90).not_to include pr2
+  end
+
+  it "returns all projects, sorted by name" do
+    pr1 = Project.create! project_attributes
+    pr2 = Project.create! project_attributes2
+    e(Project.find_all).to include pr1
+    e(Project.find_all).to include pr2
+  end
+
+  it "returns projects created within the past n days" do
+    pr1 = Project.create! project_attributes
+    pr2 = Project.create! project_attributes2 created_at: Time.now - 300.days
+    e(Project.past_n_days 90).to include pr1
+    e(Project.past_n_days 90).not_to include pr2
+  end
+
+  it "returns projects whose pledging has ended" do
+    pr1 = Project.create! project_attributes pledging_ends_on: 1.day.ago
+    pr2 = Project.create! project_attributes2 pledging_ends_on: 1.day.from_now
+    e(Project.pledging_ended).to include pr1
+    e(Project.pledging_ended).not_to include pr2
+  end
+
+  it "returns projects whose pledging has not ended" do
+    pr1 = Project.create! project_attributes pledging_ends_on: 1.day.from_now
+    pr2 = Project.create! project_attributes2 pledging_ends_on: 1.day.ago
+    e(Project.pledging).to include pr1
+    e(Project.pledging).not_to include pr2
+  end
+
 
 end

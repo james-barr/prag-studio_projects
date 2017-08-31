@@ -61,4 +61,12 @@ describe "A pledge - " do
     expect(pl.errors.any?).to eq false
   end
 
+  it "returns all pledges made within last n days" do
+    pr = Project.create! project_attributes
+    pl1 = pr.pledges.create! pledge_attributes user: @u, created_at: Date.today
+    pl2 = pr.pledges.create! pledge_attributes user: @u, created_at: (Date.today - 3000.days)
+    e(Pledge.past_n_days 10).to include pl1
+    e(Pledge.past_n_days 10).not_to include pl2
+  end
+
 end

@@ -13,4 +13,6 @@ class Pledge < ApplicationRecord
     numericality: { only_integer: true}
 
   validates :comment, length: {minimum: 25, maximum: 150}, allow_blank: true
+
+  scope :past_n_days, -> (n=30) { where 'created_at >= ?', n.days.ago }
 end

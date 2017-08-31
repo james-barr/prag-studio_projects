@@ -3,7 +3,7 @@ class ProjectsController < ApplicationController
   before_action :require_admin, except: [:index, :show]
 
   def index
-    @projects = Project.where("pledging_ends_on >= ?", Time.now).order("pledging_ends_on")
+    @projects = Project.send(project_scope)
   end
 
   def show
@@ -53,6 +53,14 @@ private
   def project_params
     params.require(:project).permit(:name, :description, :target_pledge_amount,
         :price, :website, :team_members, :image_file_name, type_ids: [])
+  end
+
+  def project_scope
+    if params[:scope].in? %w(pledging_ended)
+      params[:scope]
+    else
+      :pledging
+    end
   end
 
 end
