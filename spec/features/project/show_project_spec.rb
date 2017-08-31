@@ -43,7 +43,7 @@ describe "Viewing an individual project" do
   end
 
   it "saves a valid pledge and redirects with a flash msg" do
-    pr = Project.create project_attributes
+    pr = Project.create! project_attributes
     visit project_url(pr)
     fill_in "Location", with: "DE"
     fill_in "Comment", with: ""
@@ -78,5 +78,10 @@ describe "Viewing an individual project" do
     e(page).to have_text "Fully funded!"
   end
 
+  it "uses a SEO-friendly URL" do
+    pr = Project.create! project_attributes
+    visit project_path pr
+    e(current_path).to eq "/projects/#{pr.slug}"
+  end
 
 end

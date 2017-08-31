@@ -5,16 +5,14 @@ class Project < ApplicationRecord
   has_many :characterizations, dependent: :destroy
   has_many :types, through: :characterizations
 
-  validates :name, presence: true
+  before_validation :set_slug
 
+  validates :name, :slug, presence: true, uniqueness: true
   validates :description, length: { minimum: 25, maximum: 150}
-
   validates :target_pledge_amount, numericality: {greater_than_or_equal_to: 0}
-
   validates :team_members, format: {
     with: /\A[a-zA-Z]+\,?(\s?[a-zA-Z]+\,?\s?)*[a-zA-Z]\z/,
     message: "Words, only"}
-
   validates :website, format: {with: /(http)[s]?(:\/\/www.)[\-\w]+\.{1}\w+\z/,
     message: "Not a valid url, example of a good url: http://www.example.org"
   }
@@ -47,6 +45,14 @@ class Project < ApplicationRecord
 
   def fully_funded?
     remaining_pledge.zero?
+  end
+
+  def to_param
+    slug
+  end
+
+  def set_slug
+    self.slug ||= name.parameterize if name
   end
 
 end

@@ -1,13 +1,13 @@
 class ProjectsController < ApplicationController
   before_action :require_signin, except: [:index, :show]
   before_action :require_admin, except: [:index, :show]
+  before_action :set_event, only: [:show, :edit, :destroy, :update]
 
   def index
     @projects = Project.send(project_scope)
   end
 
   def show
-    @project = Project.find params[:id]
     @pledge = @project.pledges.new
     @followers = @project.followers
     if current_user
@@ -17,11 +17,9 @@ class ProjectsController < ApplicationController
   end
 
   def edit
-    @project = Project.find(params[:id])
   end
 
   def update
-    @project = Project.find(params[:id])
     if @project.update(project_params)
       redirect_to @project, notice: "Project successfully updated"
     else
@@ -43,7 +41,6 @@ class ProjectsController < ApplicationController
   end
 
   def destroy
-    @project = Project.find(params[:id])
     @project.delete
     redirect_to projects_url, danger: "Project successfully deleted"
   end
@@ -61,6 +58,10 @@ private
     else
       :pledging
     end
+  end
+
+  def set_event
+    @project = Project.find_by!(slug: params[:id])
   end
 
 end

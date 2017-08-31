@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   resources :users
   root "projects#index"
 
+
   get "projects/filter/:scope" => "projects#index", as: :filter_projects
 
   resources :projects do

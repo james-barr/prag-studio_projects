@@ -231,5 +231,9 @@ describe "a project" do
     e(Project.pledging).not_to include pr2
   end
 
+  it "automatically fills out project's slug" do
+    pr = Project.create! project_attributes
+    e(pr.slug).to eq pr.name.parameterize
+  end
 
 end

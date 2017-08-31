@@ -19,6 +19,11 @@
   <%= f.label :team_members %>
   <%= f.text_field :team_members %>
   <br />
+  <% unless @project.new_record? %>
+  <%= f.label :slug %>
+  <%= f.text_field :slug %>
+  <br />
+  <% end %>
   <%= f.label :image_file_name %>
   <%= f.text_field :image_file_name %>
   <br />
